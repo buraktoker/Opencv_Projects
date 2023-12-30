@@ -13,10 +13,21 @@ import cv2
 from ultralytics import YOLO
 import datetime
 from tracker import Tracker
+
 # YOUTUBE LINK https://www.youtube.com/watch?v=jIRRuGN0j5E
+
 def main():
     print("Within main")
     print(utils.get_cuda_info())
+    # font info
+    
+    font                   = cv2.FONT_HERSHEY_SIMPLEX
+    bottomLeftCornerOfText = (10,500)
+    fontScale              = 1
+    fontColor              = (255,255,255)
+    thickness              = 1
+    lineType               = 2
+    
     video_cap = cv2.VideoCapture("D:/Python/OpenCV_YOLO/Opencv_Projects/Videos/test3.mp4")
     models_path = currentdir + "\..\..\Models"
     
@@ -44,6 +55,26 @@ def main():
             class_id = int(class_id)
             detections.append([x1, x2, y1, y2, score])
         tracker.update(frame, detections)
+        
+        for track in tracker.tracks:
+            bbox = track.bbox
+            x1, y1 , x2, y2 = bbox
+            x1 = int(x1)
+            x2 = int(x2)
+            y1 = int(y1)
+            y2 = int(y2)
+            track_id = track.track_id
+            # print(f"x1 {x1} x2 {x2} y1 {y1} y2 {y2}")
+            cv2.rectangle(frame , (x1, y1), (x2, y2), color=(255,0,0), thickness=2)
+            cv2.putText(frame, str(track_id), (x1, y1),
+                        font, 
+                        fontScale,
+                        fontColor,
+                        thickness,
+                        lineType)
+        cv2.imshow('frame', frame)
+        if cv2.waitKey(1) == ord("q"):
+            break
 
 if __name__ == "__main__":
     main()

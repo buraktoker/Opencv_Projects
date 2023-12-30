@@ -5,7 +5,6 @@ import inspect
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 print(f"currentdir is {currentdir}")
 parentdir = os.path.dirname(currentdir)
-print(f"parentdir is {parentdir}")
 sys.path.insert(0, parentdir) 
 from Utils.deep_sort.deep_sort.tracker import Tracker as DeepSortTracker
 from Utils.deep_sort.tools import generate_detections as gdet
@@ -23,7 +22,7 @@ class Tracker:
         max_cosine_distance = 0.4
         nn_budget = None
 
-        encoder_model_filename = 'model_data/mars-small128.pb'
+        encoder_model_filename = currentdir + "\..\..\Models\deep_sort\mars-small128.pb"
 
         metric = nn_matching.NearestNeighborDistanceMetric("cosine", max_cosine_distance, nn_budget)
         self.tracker = DeepSortTracker(metric)
