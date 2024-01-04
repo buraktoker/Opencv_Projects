@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "D:/Python/OpenCV_YOLO/Opencv_Projects/Source/Utils",
+        "D:/Python/OpenCV_YOLO/Opencv_Projects/Source/Core"]
+}
