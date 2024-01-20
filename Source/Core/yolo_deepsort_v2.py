@@ -47,7 +47,7 @@ def main():
         detections = []
         for r in result.boxes.data.tolist():
             print(r)
-            x1, x2, y1, y2, score, class_id = r
+            x1, y1, x2, y2, score, class_id = r
             x1 = int(x1)
             x2 = int(x2)
             y1 = int(y1)
